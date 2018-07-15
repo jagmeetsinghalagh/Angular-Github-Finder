@@ -1,0 +1,68 @@
+<div class="container row mt-5">
+	<div class="col-lg-8 offset-lg-3 col-md-8 offset-md-3 col-sm-6 offset-sm-4 text-center">
+		<form class="shadow p-5" [formGroup]="searchForm">
+			<h3 class="text-center mb-4">Search User</h3>
+			<input type="text" formControlName="name" class="form-control" placeholder="Enter GitHub Username">
+			<button class="btn btn-primary btn-block mt-3" (click)="searchUser()">Search</button>
+		</form>
+	</div>
+</div>
+<div class="container mt-5" *ngIf="user">
+	<div class="card card-body shadow">
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				<img [src]="user.avatar_url"  class="img-thumbnail">
+			</div><!--col-lg-4-->
+			<div class="col-lg-8 col-md-8 col-sm-8">
+				<span class="badge badge-pill badge-dark m-2">{{ user.public_repos }} Repos</span>
+				<span class="badge badge-pill badge-primary m-2">{{ user.followers }} Followers</span>
+				<span class="badge badge-pill badge-success m-2">{{ user.following }} Following</span>
+				<ul class="list-group">
+					<li class="list-group-item">
+						<b>Username: </b>{{ user.login }}
+					</li>
+					<li class="list-group-item" *ngIf="user.email">
+						<b>Email: </b>{{ user.email }}
+					</li>
+					<li class="list-group-item" *ngIf="!user.email">
+						<b>Email: </b>N/A
+					</li>
+					<li class="list-group-item" *ngIf="user.location">
+						<b>Location: </b>{{ user.location }}
+					</li>
+					<li class="list-group-item" *ngIf="!user.location">
+						<b>Location: </b>N/A
+					</li>
+					<li class="list-group-item" *ngIf="user.bio">
+						<b>Bio: </b>{{ user.bio }}
+					</li>
+					<li class="list-group-item" *ngIf="!user.bio">
+						<b>Bio: </b>N/A
+					</li>
+					<li class="list-group-item" *ngIf="user.created_at">
+						<b>Member Since: </b>{{ user.created_at | date:longDate }}  
+					</li>
+					<li class="list-group-item" *ngIf="!user.created_at">
+						<b>Member Since: </b>N/A
+					</li>
+				</ul>
+			</div><!--col-lg-8-->
+		</div><!--row-->
+	</div><!--card-->
+</div><!--container-->
+
+<div class="container mt-5" *ngIf="repos.length>0">
+	<div class="card card-body shadow">
+		<h3 class="text-center card-tittle mb-4">Your Repos</h3>
+		<div *ngFor=" let repo of repos">
+			<span class="badge badge-pill badge-info float-right my-1">{{ repo.watchers }} Watchers</span>
+			<span class="badge badge-pill badge-secondary float-right my-1">{{ repo.forks}} Forks</span>
+			<h4><a [href]="repo.html_url" target="_blank">{{ repo.name }}</a></h4>
+			<small>{{ repo.language }}</small><br>
+			<p class="lead" *ngIf="repo.description">{{ repo.description }}</p>
+			<p class="lead" *ngIf="!repo.description">No Description Provided</p>
+			<hr class="my-4">
+		</div>
+	</div>
+</div>
+

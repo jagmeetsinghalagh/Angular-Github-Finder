@@ -1,0 +1,18 @@
+form{
+	border: 1px solid #D3D3D3;
+}
+
+.card small{
+	color: #800000;
+}
+
+hr{
+	width: 60%;
+	border: none;
+    height: 2px;
+    /* Set the hr color */
+    color: #333; /* old IE */
+    background-color: #D3D3D3; /* Modern Browsers */
+
+}
+
